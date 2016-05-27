@@ -8,6 +8,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.darkheaven.roomlike.activity.MainActivity;
+import com.darkheaven.roomlike.adapter.ChoreAdapter;
+import com.darkheaven.roomlike.object.BaseObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by tinyiota on 5/27/16.
@@ -20,7 +24,7 @@ public class ChoreListener extends BaseListener {
     @Override
     public void initViews() {
         // code to add interests from DB
-        adapter = new InterestsMainAdapter(context, TestData.getInstance().getInterests());
+        adapter = new ChoreAdapter(context, new ArrayList<BaseObject>());
         ((ListView)views.get("interestList")).setAdapter(adapter);
         ((Button)views.get("addInterestButton")).setOnClickListener(this);
     }

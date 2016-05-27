@@ -10,8 +10,6 @@ import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.object.BaseObject;
 import com.darkheaven.roomlike.object.GroceryItem;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
@@ -25,31 +23,39 @@ public class GroceryAdapter extends ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if(convertView == null){
-            convertView = inflater.inflate(R.layout.row_grocery, parent, false);
-            holder = new ViewHolder();
-            holder.dibsButton = (Button)convertView.findViewById(R.id.dibs_button);
-            holder.itemTitle = (TextView)convertView.findViewById(R.id.item_title);
-            holder.itemDetails = (TextView)convertView.findViewById(R.id.item_details);
-            holder.completeButton = (Button)convertView.findViewById(R.id.complete_button);
-
-            convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
-        }
+        ViewHolder holder = initializeHolder(convertView, parent);
 
         GroceryItem item = (GroceryItem)getItem(position);
         holder.itemTitle.setText(item.getText());
+
         StringBuilder details = new StringBuilder();
+        /*
+         * TODO : handle last user purchase
+         */
         holder.itemDetails.setText(details.toString());
+
+        holder.dibsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO : mark item dibs
+
+                // TODO : notify other users of dibs
+
+            }
+        });
+
+        holder.completeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO : mark item complete
+
+                // TODO : notify other users of complete
+
+            }
+        });
+
         return convertView;
     }
 
-    private class ViewHolder{
-        Button dibsButton;
-        TextView itemTitle;
-        TextView itemDetails;
-        Button completeButton;
-    }
+
 }

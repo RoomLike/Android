@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.object.BaseObject;
 
 import java.util.ArrayList;
@@ -43,5 +46,29 @@ public class ListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         return null;
+    }
+
+    public class ViewHolder{
+        Button dibsButton;
+        TextView itemTitle;
+        TextView itemDetails;
+        Button completeButton;
+    }
+
+    public ViewHolder initializeHolder(View convertView, ViewGroup parent){
+        ViewHolder holder;
+        if(convertView == null){
+            convertView = inflater.inflate(R.layout.row, parent, false);
+            holder = new ViewHolder();
+            holder.dibsButton = (Button)convertView.findViewById(R.id.dibs_button);
+            holder.itemTitle = (TextView)convertView.findViewById(R.id.item_title);
+            holder.itemDetails = (TextView)convertView.findViewById(R.id.item_details);
+            holder.completeButton = (Button)convertView.findViewById(R.id.complete_button);
+
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder)convertView.getTag();
+        }
+        return holder;
     }
 }
