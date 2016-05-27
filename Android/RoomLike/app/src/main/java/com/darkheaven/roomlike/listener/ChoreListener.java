@@ -33,4 +33,9 @@ public class ChoreListener extends BaseListener {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(context, position + " clicked.", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+    }
 }

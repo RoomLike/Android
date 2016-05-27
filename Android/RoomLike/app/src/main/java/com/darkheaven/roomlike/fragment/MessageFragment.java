@@ -20,7 +20,7 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_toolbar, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_messages, container, false);
 
         return rootView;
     }
