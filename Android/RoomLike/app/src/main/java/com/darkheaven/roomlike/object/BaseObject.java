@@ -5,19 +5,25 @@ package com.darkheaven.roomlike.object;
  */
 public class BaseObject {
     Group group;
-    User makerID;
+    User maker;
     String text;
-    int objectID;
+    BaseObject object;
+    User assignedUser;
+    User dibsUser;
+    User completedUser;
 
     public BaseObject() {
 
     }
 
-    public BaseObject(Group group, User makerID, String text, int objectID) {
+    public BaseObject(Group group, User maker, String text, BaseObject object, User assignedUser, User dibsUser, User completedUser) {
         this.group = group;
-        this.makerID = makerID;
+        this.maker = maker;
         this.text = text;
-        this.objectID = objectID;
+        this.object = object;
+        this.assignedUser = assignedUser;
+        this.dibsUser = dibsUser;
+        this.completedUser = completedUser;
     }
 
     public Group getGroupID() {
@@ -28,12 +34,12 @@ public class BaseObject {
         this.group = groupID;
     }
 
-    public User getMakerID() {
-        return makerID;
+    public User getMaker() {
+        return maker;
     }
 
-    public void setMakerID(User makerID) {
-        this.makerID = makerID;
+    public void setMaker(User maker) {
+        this.maker = maker;
     }
 
     public String getText() {
@@ -44,11 +50,43 @@ public class BaseObject {
         this.text = text;
     }
 
-    public int getObjectID() {
-        return objectID;
+    public BaseObject getObject() {
+        return object;
     }
 
-    public void setObjectID(int objectID) {
-        this.objectID = objectID;
+    public void setObject(BaseObject objectID) {
+        this.object = objectID;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public User getAssignedUser() {
+        return assignedUser;
+    }
+
+    public void setAssignedUser(User assignedUser) {
+        this.assignedUser = assignedUser;
+    }
+
+    public User getDibsUser() {
+        return dibsUser;
+    }
+
+    public void setDibsUser(User dibsUser) {
+        this.dibsUser = dibsUser;
+    }
+
+    public User getCompletedUser() {
+        return completedUser;
+    }
+
+    public void setCompletedUser(User completedUser) {
+        this.completedUser = completedUser;
     }
 }

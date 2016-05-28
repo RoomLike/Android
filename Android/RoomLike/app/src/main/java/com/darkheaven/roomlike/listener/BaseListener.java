@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
+import com.darkheaven.roomlike.adapter.ListAdapter;
 import com.darkheaven.roomlike.fragment.BaseFragment;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 public class BaseListener implements View.OnClickListener, AdapterView.OnItemClickListener {
     HashMap<String,View> views;
     BaseFragment fragment;
-    BaseAdapter adapter;
+    ListAdapter adapter;
     Context context;
 
     public BaseListener(Context context){

@@ -26,16 +26,18 @@ public class ChoreListener extends BaseListener {
         // code to add interests from DB
         adapter = new ChoreAdapter(context, new ArrayList<BaseObject>());
         ((ListView)views.get("interestList")).setAdapter(adapter);
-        ((Button)views.get("addInterestButton")).setOnClickListener(this);
+        (views.get("addInterestButton")).setOnClickListener(this);
     }
 
-    @Override
+    /*@Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(context, position + " clicked.", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
+        if(v.equals(views.get("ADD_BUTTON"))){
+            // TODO : link to add chore screen
+        }
     }
 }
