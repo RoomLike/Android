@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.adapter.ChoreAdapter;
 import com.darkheaven.roomlike.object.BaseObject;
@@ -23,10 +24,9 @@ public class ChoreListener extends BaseListener {
 
     @Override
     public void initViews() {
-        // code to add interests from DB
-        adapter = new ChoreAdapter(context, new ArrayList<BaseObject>());
-        ((ListView)views.get("interestList")).setAdapter(adapter);
-        (views.get("addInterestButton")).setOnClickListener(this);
+        adapter = new ChoreAdapter(context, MainActivity.os.getChores());
+        ((ListView)(views.get("LIST_VIEW"))).setAdapter(adapter);
+        views.get("ADD_BUTTON").setOnClickListener(this);
     }
 
     /*@Override
@@ -38,6 +38,7 @@ public class ChoreListener extends BaseListener {
     public void onClick(View v) {
         if(v.equals(views.get("ADD_BUTTON"))){
             // TODO : link to add chore screen
+            MainActivity.changeScreen(MainActivity.CHORE_SCREEN_EDIT);
         }
     }
 }

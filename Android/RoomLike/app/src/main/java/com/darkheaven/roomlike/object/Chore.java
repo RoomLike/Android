@@ -4,20 +4,20 @@ package com.darkheaven.roomlike.object;
  * Created by tinyiota on 5/26/16.
  */
 public class Chore extends BaseObject {
-    Frequency frequency;
+    Schedule schedule;
 
     public Chore(){}
 
-    public Chore(Group group, User maker, String text, BaseObject object, User assignedUser, User dibsUser, User completedUser, Frequency frequency){
-        super(group, maker, text, object, assignedUser, dibsUser, completedUser);
-        this.frequency = frequency;
+    public Chore(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser, Schedule schedule){
+        super(group, maker, text, assignedUser, dibsUser, completedUser);
+        this.schedule = schedule;
     }
 
-    public Frequency getFrequency() {
-        return frequency;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setFrequency(Frequency frequency) {
-        this.frequency = frequency;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 }

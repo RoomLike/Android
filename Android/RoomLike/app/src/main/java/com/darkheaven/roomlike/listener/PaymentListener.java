@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ListView;
 
+import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.adapter.ChoreAdapter;
 import com.darkheaven.roomlike.adapter.PaymentAdapter;
 import com.darkheaven.roomlike.object.BaseObject;
@@ -21,9 +22,9 @@ public class PaymentListener extends BaseListener {
     @Override
     public void initViews() {
         // code to add interests from DB
-        adapter = new PaymentAdapter(context, new ArrayList<BaseObject>());
-        ((ListView)views.get("interestList")).setAdapter(adapter);
-        (views.get("addInterestButton")).setOnClickListener(this);
+        adapter = new PaymentAdapter(context, MainActivity.os.getPayments());
+        ((ListView)views.get("LIST_VIEW")).setAdapter(adapter);
+        (views.get("ADD_BUTTON")).setOnClickListener(this);
     }
 
     @Override

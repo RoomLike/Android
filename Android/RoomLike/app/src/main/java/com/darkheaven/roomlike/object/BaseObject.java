@@ -7,7 +7,7 @@ public class BaseObject {
     Group group;
     User maker;
     String text;
-    BaseObject object;
+    int objectID;
     User assignedUser;
     User dibsUser;
     User completedUser;
@@ -16,11 +16,10 @@ public class BaseObject {
 
     }
 
-    public BaseObject(Group group, User maker, String text, BaseObject object, User assignedUser, User dibsUser, User completedUser) {
+    public BaseObject(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser) {
         this.group = group;
         this.maker = maker;
         this.text = text;
-        this.object = object;
         this.assignedUser = assignedUser;
         this.dibsUser = dibsUser;
         this.completedUser = completedUser;
@@ -50,12 +49,12 @@ public class BaseObject {
         this.text = text;
     }
 
-    public BaseObject getObject() {
-        return object;
+    public int getObjectID() {
+        return objectID;
     }
 
-    public void setObject(BaseObject objectID) {
-        this.object = objectID;
+    public void setObjectID(int objectID) {
+        this.objectID = objectID;
     }
 
     public Group getGroup() {

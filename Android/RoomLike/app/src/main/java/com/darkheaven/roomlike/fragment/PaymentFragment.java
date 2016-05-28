@@ -28,7 +28,8 @@ public class PaymentFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_payment, container, false);
         listView = (ListView)rootView.findViewById(R.id.list);
         addButton = (Button)rootView.findViewById(R.id.add_button);
-
+        registerViews();
+        listener.initViews();
         return rootView;
     }
 

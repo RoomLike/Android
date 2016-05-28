@@ -4,9 +4,20 @@ package com.darkheaven.roomlike.object;
  * Created by tinyiota on 5/26/16.
  */
 public class GroceryItem extends BaseObject {
+    String severity;
+
     public GroceryItem(){}
 
-    public GroceryItem(Group group, User maker, String text, BaseObject object, User assignedUser, User dibsUser, User completedUser){
-        super(group, maker, text, object, assignedUser, dibsUser, completedUser);
+    public GroceryItem(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser, String severity){
+        super(group, maker, text, assignedUser, dibsUser, completedUser);
+        this.severity = severity;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
     }
 }

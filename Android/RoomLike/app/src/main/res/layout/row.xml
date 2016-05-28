@@ -18,12 +18,12 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/item_title"
+            android:id="@+id/object_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
         </TextView>
         <TextView
-            android:id="@+id/item_details"
+            android:id="@+id/object_details"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
         </TextView>

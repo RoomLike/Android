@@ -49,25 +49,8 @@ public class ListAdapter extends BaseAdapter {
 
     public class ViewHolder{
         Button dibsButton;
-        TextView itemTitle;
-        TextView itemDetails;
+        TextView objectTitle;
+        TextView objectDetails;
         Button completeButton;
-    }
-
-    public ViewHolder initializeHolder(View convertView, ViewGroup parent){
-        ViewHolder holder;
-        if(convertView == null){
-            convertView = inflater.inflate(R.layout.row, parent, false);
-            holder = new ViewHolder();
-            holder.dibsButton = (Button)convertView.findViewById(R.id.dibs_button);
-            holder.itemTitle = (TextView)convertView.findViewById(R.id.item_title);
-            holder.itemDetails = (TextView)convertView.findViewById(R.id.item_details);
-            holder.completeButton = (Button)convertView.findViewById(R.id.complete_button);
-
-            convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
-        }
-        return holder;
     }
 }

@@ -7,16 +7,16 @@ public class Payment extends BaseObject{
     User toUser;
     User fromUser;
     double amount;
-    Frequency frequency;
+    Schedule schedule;
 
     public Payment(){}
 
-    public Payment(Group group, User makerID, String text, BaseObject object, User assignedUser, User dibsUser, User completedUser, User toUser, User fromUser, double amount, Frequency frequency){
-        super(group, makerID, text, object, assignedUser, dibsUser, completedUser);
+    public Payment(Group group, User makerID, String text, User assignedUser, User dibsUser, User completedUser, User toUser, User fromUser, double amount, Schedule schedule){
+        super(group, makerID, text, assignedUser, dibsUser, completedUser);
         this.toUser = toUser;
         this.fromUser = fromUser;
         this.amount = amount;
-        this.frequency = frequency;
+        this.schedule = schedule;
     }
 
     public User getToUser() {
@@ -43,11 +43,11 @@ public class Payment extends BaseObject{
         this.amount = amount;
     }
 
-    public Frequency getFrequency() {
-        return frequency;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setFrequency(Frequency frequency) {
-        this.frequency = frequency;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 }

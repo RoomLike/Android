@@ -7,8 +7,8 @@ public class Message extends BaseObject {
     long messageTime;
 
     public Message(){}
-    public Message(Group group, User maker, String text, BaseObject object, User assignedUser, User dibsUser, User completedUser){
-        super(group, maker, text, object, assignedUser, dibsUser, completedUser);
+    public Message(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser){
+        super(group, maker, text, assignedUser, dibsUser, completedUser);
     }
 
     public long getMessageTime() {

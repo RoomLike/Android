@@ -8,6 +8,14 @@ public class User {
     String userName;
     Group group;
 
+    public User(){
+
+    }
+
+    public User(String userName){
+        this.userName = userName;
+    }
+
     public int getUserID() {
         return userID;
     }

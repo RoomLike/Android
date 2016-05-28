@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ListView;
 
+import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.adapter.GroceryAdapter;
 import com.darkheaven.roomlike.object.BaseObject;
 
@@ -20,7 +21,7 @@ public class GroceryListener extends BaseListener {
     @Override
     public void initViews() {
         // code to add interests from DB
-        adapter = new GroceryAdapter(context, new ArrayList<BaseObject>());
+        adapter = new GroceryAdapter(context, MainActivity.os.getGroceries());
         ((ListView)views.get("LIST_VIEW")).setAdapter(adapter);
         (views.get("ADD_BUTTON")).setOnClickListener(this);
     }
