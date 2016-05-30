@@ -96,12 +96,14 @@ public class MainActivity extends FragmentActivity {
         fragments.add(ChoreFragment.newInstance());
         fragments.add(GroceryFragment.newInstance());
         fragments.add(PaymentFragment.newInstance());
+        fragments.add(FilesFragment.newInstance());
 
         listeners = new ArrayList<>();
         listeners.add(new MessageListener(this));
         listeners.add(new ChoreListener(this));
         listeners.add(new GroceryListener(this));
         listeners.add(new PaymentListener(this));
+        listeners.add(new FilesListener(this));
 
         editFragments = new ArrayList<>();
         editFragments.add(ChoreEditFragment.newInstance());
