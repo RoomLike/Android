@@ -15,6 +15,7 @@ import com.darkheaven.roomlike.adapter.PagerAdapter;
 import com.darkheaven.roomlike.fragment.*;
 import com.darkheaven.roomlike.listener.*;
 import com.darkheaven.roomlike.object.ObjectStore;
+import com.darkheaven.roomlike.utils.SP;
 import com.darkheaven.roomlike.utils.TestUtils;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class MainActivity extends FragmentActivity {
     public static ArrayList<BaseListener> editListeners;
     public static BaseFragment scheduleFragment;
     public static BaseListener scheduleListener;
+    public static BaseFragment loginFragment;
+    public static BaseListener loginListener;
 
     public static ToolbarFragment toolbarFragment;
     public static FragmentManager manager;
@@ -39,6 +42,7 @@ public class MainActivity extends FragmentActivity {
     public static final String CHORE_SCREEN_EDIT = "chore_screen_edit";
     public static final String GROCERY_SCREEN_EDIT = "grocery_screen_edit";
     public static final String PAYMENT_SCREEN_EDIT = "payment_screen_edit";
+    public static final String LOGIN_SCREEN = "login_screen";
     public static final String ACTIVE_SCREEN = "active_screen_edit";
 
     public static final ObjectStore os = new ObjectStore();
@@ -49,6 +53,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        SP.saveString(SP.USER_NAME_KEY, "Curtis");
         manager = getSupportFragmentManager();
         TestUtils.init();
         initializeFragments();
@@ -83,6 +88,11 @@ public class MainActivity extends FragmentActivity {
                 manager.beginTransaction().add(R.id.background_fragment, PaymentEditFragment.newInstance()).commit();
                 manager.beginTransaction().add(R.id.background_schedule_fragment, ScheduleFragment.newInstance(3)).commit();
             }
+        }else if(newScreen.equals(LOGIN_SCREEN)) {
+            bodyContainer.setVisibility(View.GONE);
+            backgroundContainer.setVisibility(View.VISIBLE);
+            mainIsShowing = false;
+            manager.beginTransaction().add(R.id.background_fragment, loginFragment).commit();
         }else{
             bodyContainer.setVisibility(View.VISIBLE);
             backgroundContainer.setVisibility(View.GONE);
@@ -97,6 +107,7 @@ public class MainActivity extends FragmentActivity {
         fragments.add(GroceryFragment.newInstance());
         fragments.add(PaymentFragment.newInstance());
         fragments.add(FilesFragment.newInstance());
+        fragments.add(SettingsFragment.newInstance());
 
         listeners = new ArrayList<>();
         listeners.add(new MessageListener(this));
@@ -104,6 +115,7 @@ public class MainActivity extends FragmentActivity {
         listeners.add(new GroceryListener(this));
         listeners.add(new PaymentListener(this));
         listeners.add(new FilesListener(this));
+        listeners.add(new SettingsListener(this));
 
         editFragments = new ArrayList<>();
         editFragments.add(ChoreEditFragment.newInstance());
@@ -130,7 +142,19 @@ public class MainActivity extends FragmentActivity {
         scheduleFragment.setListener(scheduleListener);
         scheduleListener.setView(scheduleFragment);
 
-        toolbarFragment = ToolbarFragment.newInstance(0);
+        if(SP.getString(SP.USER_NAME_KEY).equals("")){
+            loginFragment = LoginFragment.newInstance();
+            loginListener = new LoginListener(this);
+            loginFragment.setListener(loginListener);
+            loginListener.setView(loginFragment);
+        }
+
+        int launchScreen = 1;
+        if(SP.getString(SP.GROUP_NAME_KEY).equals("")){
+            launchScreen = 5;
+        }
+
+        toolbarFragment = ToolbarFragment.newInstance(launchScreen);
         manager.beginTransaction().add(R.id.tool_bar, toolbarFragment).commit();
     }
 
@@ -140,6 +164,14 @@ public class MainActivity extends FragmentActivity {
             super.onBackPressed();
         }else{
             changeScreen("ANYTHING");
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(SP.getString(SP.USER_NAME_KEY).equals("")){
+            changeScreen(LOGIN_SCREEN);
         }
     }
 }

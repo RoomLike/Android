@@ -11,6 +11,7 @@ import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.object.BaseObject;
 import com.darkheaven.roomlike.object.Chore;
 import com.darkheaven.roomlike.object.GroceryItem;
+import com.darkheaven.roomlike.utils.SP;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,7 @@ public class ChoreAdapter extends ListAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        Chore object = (Chore)getItem(position);
+        final Chore object = (Chore)getItem(position);
         if(object.getDibsUser() != null){
             holder.dibsButton.setText(object.getDibsUser().getUserName());
         }else{
@@ -60,24 +61,29 @@ public class ChoreAdapter extends ListAdapter {
          * TODO : handle last user purchase
          */
         holder.objectDetails.setText(details.toString());
-
+        final Button tempDibs = holder.dibsButton;
         holder.dibsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO : mark item dibs
-
-                // TODO : notify other users of dibs
+                if(object.getCompletedUser() != null || object.getDibsUser() != null){
+                    // do nothing
+                }else{
+                    tempDibs.setText(SP.getString(SP.USER_NAME_KEY));
+                }
 
             }
         });
 
+        final Button tempComplete = holder.completeButton;
         holder.completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO : mark item complete
-
-                // TODO : notify other users of complete
-
+                if(object.getCompletedUser() != null){
+                    // do nothing
+                }else{
+                    tempComplete.setText(SP.getString(SP.USER_NAME_KEY));
+                }
             }
         });
 
