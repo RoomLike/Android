@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RoomLike</string>
+    <string name="db_name">room_like_db</string>
 </resources>

@@ -14,6 +14,8 @@ import com.darkheaven.roomlike.R;
  * Created by tinyiota on 5/31/16.
  */
 public class SettingsFragment extends BaseFragment {
+    Button createGroup;
+    Button joinGroup;
     public SettingsFragment(){}
 
     public static BaseFragment newInstance(){
@@ -24,6 +26,8 @@ public class SettingsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        createGroup = (Button)rootView.findViewById(R.id.create_group);
+        joinGroup = (Button)rootView.findViewById(R.id.join_group);
         registerViews();
         listener.initViews();
         return rootView;
@@ -31,6 +35,7 @@ public class SettingsFragment extends BaseFragment {
 
     @Override
     public void registerViews() {
-
+        listener.registerView("CREATE_GROUP", createGroup);
+        listener.registerView("JOIN_GROUP", joinGroup);
     }
 }

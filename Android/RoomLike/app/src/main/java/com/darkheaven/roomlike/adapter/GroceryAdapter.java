@@ -48,6 +48,12 @@ public class GroceryAdapter extends ListAdapter {
         details.append(item.getSeverity());
         holder.objectDetails.setText(details.toString());
 
+        if(item.getDibsUser() != null){
+            holder.dibsButton.setText(item.getDibsUser().getUserName());
+        }else{
+            holder.dibsButton.setText("Call Dibs");
+        }
+
         holder.dibsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +64,11 @@ public class GroceryAdapter extends ListAdapter {
             }
         });
 
+        if(item.getCompletedUser() != null){
+            holder.completeButton.setText(item.getCompletedUser().getUserName());
+        }else{
+            holder.completeButton.setText("Complete");
+        }
         holder.completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

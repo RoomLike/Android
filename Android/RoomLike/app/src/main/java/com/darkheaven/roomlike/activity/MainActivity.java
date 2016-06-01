@@ -53,7 +53,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        SP.saveString(SP.USER_NAME_KEY, "Curtis");
+        //SP.saveString(SP.USER_NAME_KEY, "Curtis");
+        //SP.saveInt(SP.GROUP_ID_KEY, 1);
         manager = getSupportFragmentManager();
         TestUtils.init();
         initializeFragments();
@@ -61,6 +62,10 @@ public class MainActivity extends FragmentActivity {
         pagerAdapter = new PagerAdapter(manager);
         pager = (ViewPager)findViewById(R.id.main_pager);
         pager.setAdapter(pagerAdapter);
+
+        toolbarFragment = ToolbarFragment.newInstance(1);
+        manager.beginTransaction().add(R.id.tool_bar, toolbarFragment).commit();
+
         pager.setCurrentItem(1);
         pager.setOffscreenPageLimit(3);
         pageListener = new MyPagerListener();
@@ -148,14 +153,6 @@ public class MainActivity extends FragmentActivity {
             loginFragment.setListener(loginListener);
             loginListener.setView(loginFragment);
         }
-
-        int launchScreen = 1;
-        if(SP.getString(SP.GROUP_NAME_KEY).equals("")){
-            launchScreen = 5;
-        }
-
-        toolbarFragment = ToolbarFragment.newInstance(launchScreen);
-        manager.beginTransaction().add(R.id.tool_bar, toolbarFragment).commit();
     }
 
     @Override

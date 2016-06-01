@@ -20,7 +20,7 @@ public class ChoreEditFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_chore, container, false);
+        rootView = inflater.inflate(R.layout.fragment_chore_edit, container, false);
         return rootView;
     }
 
