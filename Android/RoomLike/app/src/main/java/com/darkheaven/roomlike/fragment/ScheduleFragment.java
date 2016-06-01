@@ -44,11 +44,8 @@ public class ScheduleFragment extends BaseFragment {
 
     public ScheduleFragment(){}
 
-    public static BaseFragment newInstance(int screen){
+    public static BaseFragment newInstance(){
         ScheduleFragment fragment = new ScheduleFragment();
-        Bundle args = new Bundle();
-        args.putInt(MainActivity.ACTIVE_SCREEN, screen);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -70,7 +67,6 @@ public class ScheduleFragment extends BaseFragment {
         minuteContainer = (LinearLayout)rootView.findViewById(R.id.minute_container);
         minuteNP = (NumberPicker)rootView.findViewById(R.id.minute_picker);
         registerViews();
-        ((ScheduleListener)listener).setScreen(getArguments().getInt(MainActivity.ACTIVE_SCREEN));
         listener.initViews();
         return rootView;
     }

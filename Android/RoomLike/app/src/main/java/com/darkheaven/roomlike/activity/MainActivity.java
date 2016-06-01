@@ -83,15 +83,19 @@ public class MainActivity extends FragmentActivity {
             bodyContainer.setVisibility(View.GONE);
             backgroundContainer.setVisibility(View.VISIBLE);
             mainIsShowing = false;
+            // TODO : clean scheduleFragment views
             if (newScreen.equals(CHORE_SCREEN_EDIT)) {
-                manager.beginTransaction().add(R.id.background_fragment, ChoreEditFragment.newInstance()).commit();
-                manager.beginTransaction().add(R.id.background_schedule_fragment, ScheduleFragment.newInstance(1)).commit();
+                manager.beginTransaction().add(R.id.background_fragment, editFragments.get(0)).commit();
+                ((ScheduleListener)scheduleListener).setScreen(0);
+                manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
             }else if(newScreen.equals(GROCERY_SCREEN_EDIT)){
-                manager.beginTransaction().add(R.id.background_fragment, GroceryEditFragment.newInstance()).commit();
-                manager.beginTransaction().add(R.id.background_schedule_fragment, ScheduleFragment.newInstance(2)).commit();
+                manager.beginTransaction().add(R.id.background_fragment, editFragments.get(1)).commit();
+                ((ScheduleListener)scheduleListener).setScreen(1);
+                manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
             }else if(newScreen.equals(PAYMENT_SCREEN_EDIT)){
-                manager.beginTransaction().add(R.id.background_fragment, PaymentEditFragment.newInstance()).commit();
-                manager.beginTransaction().add(R.id.background_schedule_fragment, ScheduleFragment.newInstance(3)).commit();
+                manager.beginTransaction().add(R.id.background_fragment, editFragments.get(2)).commit();
+                ((ScheduleListener)scheduleListener).setScreen(2);
+                manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
             }
         }else if(newScreen.equals(LOGIN_SCREEN)) {
             bodyContainer.setVisibility(View.GONE);
@@ -138,11 +142,11 @@ public class MainActivity extends FragmentActivity {
         }
 
         for(int i = 0; i < editFragments.size(); i++){
-            editFragments.get(i).setListener(listeners.get(i));
-            editListeners.get(i).setView(fragments.get(i));
+            editFragments.get(i).setListener(editListeners.get(i));
+            editListeners.get(i).setView(editFragments.get(i));
         }
 
-        scheduleFragment = ScheduleFragment.newInstance(0);
+        scheduleFragment = ScheduleFragment.newInstance();
         scheduleListener = new ScheduleListener(this);
         scheduleFragment.setListener(scheduleListener);
         scheduleListener.setView(scheduleFragment);
