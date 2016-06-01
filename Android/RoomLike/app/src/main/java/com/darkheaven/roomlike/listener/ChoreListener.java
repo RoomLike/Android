@@ -26,6 +26,7 @@ public class ChoreListener extends BaseListener {
     public void initViews() {
         adapter = new ChoreAdapter(context, MainActivity.os.getChores());
         ((ListView)(views.get("LIST_VIEW"))).setAdapter(adapter);
+        (((ListView)views.get("LIST_VIEW"))).setOnLongClickListener(this);
         views.get("ADD_BUTTON").setOnClickListener(this);
     }
 

@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class ScheduleListener extends BaseListener implements AdapterView.OnItemSelectedListener {
     private int screen;
+    static Schedule schedule;
 
     public ScheduleListener(Context context) {
         super(context);
@@ -28,7 +29,7 @@ public class ScheduleListener extends BaseListener implements AdapterView.OnItem
             // TODO : link to add grocery item screen
         }
     }
-Nnow 
+
     @Override
     public void initViews() {
         // TODO : init frequency_spinner
@@ -50,5 +51,13 @@ Nnow
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public static Schedule getSchedule(){
+        if(schedule == null){
+            schedule = new Schedule();
+        }
+
+        return schedule;
     }
 }

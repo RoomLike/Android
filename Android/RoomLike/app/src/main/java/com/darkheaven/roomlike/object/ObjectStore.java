@@ -2,6 +2,8 @@ package com.darkheaven.roomlike.object;
 
 import android.renderscript.BaseObj;
 
+import com.darkheaven.roomlike.activity.RLApplication;
+import com.darkheaven.roomlike.database.DBOpenHelper;
 import com.darkheaven.roomlike.utils.L;
 
 import java.util.ArrayList;
@@ -12,6 +14,11 @@ import java.util.ArrayList;
 public class ObjectStore {
     public Group group = new Group();
     public ArrayList<BaseObject> objects = new ArrayList<>();
+    public DBOpenHelper helper;
+
+    public ObjectStore(){
+        helper = new DBOpenHelper(RLApplication.getContext());
+    }
 
     public void addUserToGroup(User user){
         group.addUserToGroup(user);
@@ -28,11 +35,26 @@ public class ObjectStore {
         objects.add(object);
     }
 
-    public void markObjectComplete(BaseObject object){
-        try{
-            objects.remove(object);
-        }catch (NullPointerException e){
-            L.e("Object does not exist/not found.");
+    public User getUserByName(String name){
+        for(User u : group.getUsers().values()){
+            if(u.getUserName().equals(name)){
+                return u;
+            }
+        }
+        return null;
+    }
+
+    public void updateObject(BaseObject object){
+        boolean found = false;
+        for(int i = 0; i < objects.size() && !found; i++){
+            if(objects.get(i).getObjectID() == object.getObjectID()){
+                objects.set(i, object);
+                /*
+                TODO : update object in DB
+                helper.updateObject();
+                 */
+                found = true;
+            }
         }
     }
 

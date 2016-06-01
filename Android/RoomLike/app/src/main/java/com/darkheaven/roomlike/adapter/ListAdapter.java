@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.darkheaven.roomlike.R;
@@ -49,6 +50,7 @@ public class ListAdapter extends BaseAdapter {
 
     public class ViewHolder{
         Button dibsButton;
+        LinearLayout objectContainer;
         TextView objectTitle;
         TextView objectDetails;
         Button completeButton;

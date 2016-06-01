@@ -1,5 +1,6 @@
 package com.darkheaven.roomlike.object;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -43,5 +44,13 @@ public class Group {
 
     public void setGroupID(int groupID) {
         this.groupID = groupID;
+    }
+
+    public ArrayList<String> getUsersNames(){
+        ArrayList<String> results = new ArrayList<>();
+        for(User u : users.values()){
+            results.add(u.getUserName());
+        }
+        return results;
     }
 }

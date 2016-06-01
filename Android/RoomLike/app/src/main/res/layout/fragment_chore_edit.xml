@@ -4,5 +4,58 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <Button
+        android:id="@+id/submit"
+        android:text="Submit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </Button>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:text="Title"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/title_field"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:text="Assigned To"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </TextView>
+        <Spinner
+            android:id="@+id/assigned_to_spinner"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </Spinner>
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/send_notification_when_due"
+        android:text="Send Notification When Due"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </CheckBox>
+    <CheckBox
+        android:id="@+id/send_notification_on_create"
+        android:text="Send Notification When Create"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </CheckBox>
 </LinearLayout>

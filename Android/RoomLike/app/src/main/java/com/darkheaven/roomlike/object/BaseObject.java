@@ -25,6 +25,8 @@ public class BaseObject {
         this.completedUser = completedUser;
     }
 
+    public void update(BaseObject object){}
+
     public Group getGroupID() {
         return group;
     }

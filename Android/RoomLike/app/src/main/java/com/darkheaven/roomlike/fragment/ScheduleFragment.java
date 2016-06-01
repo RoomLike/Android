@@ -1,6 +1,8 @@
 package com.darkheaven.roomlike.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.Spinner;
 import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.listener.ScheduleListener;
+import com.darkheaven.roomlike.object.Schedule;
 
 /**
  * Created by tinyiota on 5/27/16.
@@ -86,4 +89,11 @@ public class ScheduleFragment extends BaseFragment {
         listener.registerView(MINUTE_CONTAINER, minuteContainer);
         listener.registerView(MINUTE_NUMBER_PICKER, minuteNP);
     }
+
+    public static Handler ScheduleHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            msg.obj = ((ScheduleListener)listener).getSchedule();
+        }
+    };
 }

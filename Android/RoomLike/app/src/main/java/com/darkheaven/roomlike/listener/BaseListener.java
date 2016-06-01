@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by tinyiota on 5/27/16.
  */
-public class BaseListener implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class BaseListener implements View.OnClickListener, View.OnLongClickListener, AdapterView.OnItemClickListener {
     HashMap<String,View> views;
     BaseFragment fragment;
     ListAdapter adapter;
@@ -44,6 +44,11 @@ public class BaseListener implements View.OnClickListener, AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        return false;
     }
 }
 

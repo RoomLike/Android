@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.darkheaven.roomlike.R;
@@ -29,6 +30,7 @@ public class PaymentAdapter extends ListAdapter {
             convertView = inflater.inflate(R.layout.row, parent, false);
             holder = new ViewHolder();
             holder.dibsButton = (Button)convertView.findViewById(R.id.dibs_button);
+            holder.objectContainer = (LinearLayout)convertView.findViewById(R.id.text_container);
             holder.objectTitle = (TextView)convertView.findViewById(R.id.object_title);
             holder.objectDetails = (TextView)convertView.findViewById(R.id.object_details);
             holder.completeButton = (Button)convertView.findViewById(R.id.complete_button);

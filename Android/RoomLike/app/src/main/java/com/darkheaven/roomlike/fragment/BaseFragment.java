@@ -10,7 +10,7 @@ import com.darkheaven.roomlike.listener.BaseListener;
  * Created by tinyiota on 5/26/16.
  */
 public class BaseFragment extends Fragment {
-    BaseListener listener;
+    static BaseListener listener;
     View rootView;
 
     public BaseFragment(){}

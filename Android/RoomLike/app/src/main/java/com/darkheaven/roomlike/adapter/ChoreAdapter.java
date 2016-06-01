@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.darkheaven.roomlike.R;
@@ -30,6 +31,7 @@ public class ChoreAdapter extends ListAdapter {
             convertView = inflater.inflate(R.layout.row, parent, false);
             holder = new ViewHolder();
             holder.dibsButton = (Button)convertView.findViewById(R.id.dibs_button);
+            holder.objectContainer = (LinearLayout)convertView.findViewById(R.id.text_container);
             holder.objectTitle = (TextView)convertView.findViewById(R.id.object_title);
             holder.objectDetails = (TextView)convertView.findViewById(R.id.object_details);
             holder.completeButton = (Button)convertView.findViewById(R.id.complete_button);
@@ -84,6 +86,13 @@ public class ChoreAdapter extends ListAdapter {
                 }else{
                     tempComplete.setText(SP.getString(SP.USER_NAME_KEY));
                 }
+            }
+        });
+
+        holder.objectContainer.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
             }
         });
 
