@@ -17,10 +17,12 @@ public class GroceryEditFragment extends BaseFragment {
     Button submitButton;
     EditText titleField;
     Spinner assignedToSpinner;
+    EditText importanceText;
 
     public static final String SUBMIT_BUTTON = "SUBMIT_BUTTON";
     public static final String TITLE_FIELD = "TITLE_FIELD";
     public static final String ASSIGNED_TO_SPINNER = "ASSIGNED_TO_SPINNER";
+    public static final String IMPORTANCE_EDIT_TEXT = "IMPORTANCE_EDIT_TEXT";
 
     public GroceryEditFragment(){}
 
@@ -35,7 +37,9 @@ public class GroceryEditFragment extends BaseFragment {
         submitButton = (Button)rootView.findViewById(R.id.submit);
         titleField = (EditText)rootView.findViewById(R.id.title_field);
         assignedToSpinner = (Spinner)rootView.findViewById(R.id.assigned_to_spinner);
+        importanceText = (EditText)rootView.findViewById(R.id.importance_text);
         registerViews();
+        listener.initViews();
         return rootView;
     }
 
@@ -44,5 +48,7 @@ public class GroceryEditFragment extends BaseFragment {
         listener.registerView(SUBMIT_BUTTON, submitButton);
         listener.registerView(TITLE_FIELD, titleField);
         listener.registerView(ASSIGNED_TO_SPINNER, assignedToSpinner);
+        listener.registerView(IMPORTANCE_EDIT_TEXT, importanceText);
+        submitButton.setOnClickListener(listener);
     }
 }

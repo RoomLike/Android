@@ -95,32 +95,31 @@ public class MainActivity extends FragmentActivity {
                 mainIsShowing = false;
                 if(editFragments.get(0).isAdded()){
                     manager.beginTransaction().replace(R.id.background_fragment, editFragments.get(0)).commit();
-                    manager.beginTransaction().replace(R.id.background_schedule_fragment, scheduleFragment).commit();
                 }else {
                     manager.beginTransaction().add(R.id.background_fragment, editFragments.get(0)).commit();
-                    manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
                 }
                 ((ScheduleListener)scheduleListener).setScreen(0);
             }else if(newScreen.equals(GROCERY_SCREEN_EDIT)){
                 if(editFragments.get(1).isAdded()) {
                     manager.beginTransaction().replace(R.id.background_fragment, editFragments.get(1)).commit();
-                    manager.beginTransaction().replace(R.id.background_schedule_fragment, scheduleFragment).commit();
                 }else{
                     manager.beginTransaction().add(R.id.background_fragment, editFragments.get(1)).commit();
-                    manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
                 }
                 ((ScheduleListener) scheduleListener).setScreen(1);
             }else if(newScreen.equals(PAYMENT_SCREEN_EDIT)){
                 if(editFragments.get(2).isAdded()){
                     manager.beginTransaction().replace(R.id.background_fragment, editFragments.get(2)).commit();
-                    manager.beginTransaction().replace(R.id.background_schedule_fragment, scheduleFragment).commit();
                 }else {
                     manager.beginTransaction().add(R.id.background_fragment, editFragments.get(2)).commit();
-                    manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
                 }
                 ((ScheduleListener) scheduleListener).setScreen(2);
             }
-        }else if(newScreen.equals(LOGIN_SCREEN)) {
+            if(scheduleFragment.isAdded()){
+                manager.beginTransaction().replace(R.id.background_schedule_fragment, scheduleFragment).commit();
+            }else{
+                manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
+            }
+        }else if(newScreen.equals(LOGIN_SCREEN)){
             bodyContainer.setVisibility(View.GONE);
             backgroundContainer.setVisibility(View.VISIBLE);
             mainIsShowing = false;

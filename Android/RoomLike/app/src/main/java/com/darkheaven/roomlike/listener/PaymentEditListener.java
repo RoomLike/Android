@@ -4,11 +4,15 @@ import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.fragment.ChoreEditFragment;
+import com.darkheaven.roomlike.fragment.PaymentEditFragment;
 import com.darkheaven.roomlike.object.Chore;
+import com.darkheaven.roomlike.object.Payment;
+import com.darkheaven.roomlike.utils.SP;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,7 @@ public class PaymentEditListener extends BaseListener implements AdapterView.OnI
 
     public PaymentEditListener(Context context) {
         super(context);
+        objectID = -1000;
     }
 
     @Override
@@ -29,6 +34,7 @@ public class PaymentEditListener extends BaseListener implements AdapterView.OnI
             if(objectID == -1000){
                 // add new
                 addNewObject();
+                MainActivity.changeScreen(MainActivity.PAYMENT_SCREEN);
             }else{
                 updateObject();
             }
@@ -58,11 +64,16 @@ public class PaymentEditListener extends BaseListener implements AdapterView.OnI
     }
 
     public void addNewObject(){
-        Chore chore = new Chore();
-        chore.setSchedule(((ScheduleListener)MainActivity.scheduleListener).getSchedule());
-        chore.getSchedule().setObject(chore);
-        chore.setAssignedUser(MainActivity.os.getUserByName(assignedToSelected));
-        MainActivity.os.addObject(chore);
+        Payment payment = new Payment();
+        payment.setText(((EditText)views.get(PaymentEditFragment.TITLE_FIELD)).getText().toString());
+        payment.setSchedule(((ScheduleListener) MainActivity.scheduleListener).getSchedule());
+        payment.getSchedule().setObject(payment);
+        payment.setAmount(Double.parseDouble(((EditText) views.get(PaymentEditFragment.AMOUNT_EDIT_TEXT)).getText().toString()));
+        payment.setMaker(MainActivity.os.getUserByName(SP.getString(SP.USER_NAME_KEY)));
+        if(!assignedToSelected.equals("")) {
+            payment.setAssignedUser(MainActivity.os.getUserByName(assignedToSelected));
+        }
+        MainActivity.os.addObject(payment);
     }
 
     public void updateObject(){

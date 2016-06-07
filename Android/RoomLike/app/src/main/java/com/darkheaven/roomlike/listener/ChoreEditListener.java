@@ -11,6 +11,7 @@ import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.fragment.ChoreEditFragment;
 import com.darkheaven.roomlike.fragment.ScheduleFragment;
 import com.darkheaven.roomlike.object.Chore;
+import com.darkheaven.roomlike.utils.SP;
 
 import java.util.ArrayList;
 
@@ -66,8 +67,9 @@ public class ChoreEditListener extends BaseListener implements AdapterView.OnIte
     public void addNewObject(){
         Chore chore = new Chore();
         chore.setText(((EditText)views.get(ChoreEditFragment.TITLE_FIELD)).getText().toString());
-        chore.setSchedule(((ScheduleListener)MainActivity.scheduleListener).getSchedule());
+        chore.setSchedule(((ScheduleListener) MainActivity.scheduleListener).getSchedule());
         chore.getSchedule().setObject(chore);
+        chore.setMaker(MainActivity.os.getUserByName(SP.getString(SP.USER_NAME_KEY)));
         if(!assignedToSelected.equals("")) {
             chore.setAssignedUser(MainActivity.os.getUserByName(assignedToSelected));
         }

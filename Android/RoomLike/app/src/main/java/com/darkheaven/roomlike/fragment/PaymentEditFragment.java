@@ -51,5 +51,6 @@ public class PaymentEditFragment extends BaseFragment {
         listener.registerView(TITLE_FIELD, titleField);
         listener.registerView(ASSIGNED_TO_SPINNER, assignedToSpinner);
         listener.registerView(AMOUNT_EDIT_TEXT, amountText);
+        submitButton.setOnClickListener(listener);
     }
 }

@@ -4,11 +4,14 @@ import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.fragment.GroceryEditFragment;
 import com.darkheaven.roomlike.object.Chore;
+import com.darkheaven.roomlike.object.GroceryItem;
+import com.darkheaven.roomlike.utils.SP;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,7 @@ public class GroceryEditListener extends BaseListener implements AdapterView.OnI
 
     public GroceryEditListener(Context context) {
         super(context);
+        objectID = -1000;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class GroceryEditListener extends BaseListener implements AdapterView.OnI
             if(objectID == -1000){
                 // add new
                 addNewObject();
+                MainActivity.changeScreen(MainActivity.GROCERY_SCREEN);
             }else{
                 updateObject();
             }
@@ -58,11 +63,14 @@ public class GroceryEditListener extends BaseListener implements AdapterView.OnI
     }
 
     public void addNewObject(){
-        Chore chore = new Chore();
-        chore.setSchedule(((ScheduleListener)MainActivity.scheduleListener).getSchedule());
-        chore.getSchedule().setObject(chore);
-        chore.setAssignedUser(MainActivity.os.getUserByName(assignedToSelected));
-        MainActivity.os.addObject(chore);
+        GroceryItem item = new GroceryItem();
+        item.setText(((EditText) views.get(GroceryEditFragment.TITLE_FIELD)).getText().toString());
+        item.setSeverity(((EditText) views.get(GroceryEditFragment.IMPORTANCE_EDIT_TEXT)).getText().toString());
+        item.setMaker(MainActivity.os.getUserByName(SP.getString(SP.USER_NAME_KEY)));
+        if(!assignedToSelected.equals("")) {
+            item.setAssignedUser(MainActivity.os.getUserByName(assignedToSelected));
+        }
+        MainActivity.os.addObject(item);
     }
 
     public void updateObject(){
