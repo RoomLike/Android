@@ -28,6 +28,10 @@ public class ListAdapter extends BaseAdapter {
         this.items = items;
     }
 
+    public void resetList(){
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return items.size();

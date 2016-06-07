@@ -55,5 +55,6 @@ public class ChoreEditFragment extends BaseFragment {
         listener.registerView(ASSIGNED_TO_SPINNER, assignedToSpinner);
         listener.registerView(NOTIFY_WHEN_DUE, notifyWhenDue);
         listener.registerView(NOTIFY_ON_CREATE, notifyOnCreate);
+        submitButton.setOnClickListener(listener);
     }
 }

@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.activity.MainActivity;
+import com.darkheaven.roomlike.listener.ChoreListener;
 
 /**
  * Created by tinyiota on 5/26/16.

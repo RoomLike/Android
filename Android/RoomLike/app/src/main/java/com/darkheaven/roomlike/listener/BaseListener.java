@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class BaseListener implements View.OnClickListener, View.OnLongClickListener, AdapterView.OnItemClickListener {
     HashMap<String,View> views;
     BaseFragment fragment;
-    ListAdapter adapter;
+    public ListAdapter adapter;
     Context context;
 
     public BaseListener(Context context){

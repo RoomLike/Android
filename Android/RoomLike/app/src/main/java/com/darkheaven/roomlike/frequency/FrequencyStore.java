@@ -26,6 +26,21 @@ public class FrequencyStore {
         return result;
     }
 
+    public static Frequency getFrequencyByText(String frequencyText){
+        if(frequencies == null){
+            init();
+        }
+        Frequency f = null;
+        boolean found = false;
+        for(int i = 0; i < frequencies.size() && !found; i++){
+            if(frequencies.get(i).getFrequencyText().equals(frequencyText)){
+                f = frequencies.get(i);
+                found = true;
+            }
+        }
+        return f;
+    }
+
     public static void init(){
         frequencies = new ArrayList<>();
         frequencies.add(new Once());

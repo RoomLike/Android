@@ -26,13 +26,13 @@
             android:orientation="horizontal">
             <TextView
                 android:text="Day of Month"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content">
             </TextView>
             <NumberPicker
                 android:id="@+id/day_of_month_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="100dp"
+                android:layout_height="40dp">
             </NumberPicker>
         </LinearLayout>
         <LinearLayout
@@ -48,7 +48,7 @@
             <NumberPicker
                 android:id="@+id/month_of_year_picker"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="40dp">
             </NumberPicker>
         </LinearLayout>
         <LinearLayout
@@ -64,7 +64,7 @@
             <NumberPicker
                 android:id="@+id/year_picker"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="40dp">
             </NumberPicker>
         </LinearLayout>
         <LinearLayout
@@ -79,8 +79,56 @@
             <NumberPicker
                 android:id="@+id/repeat_every_picker"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="40dp">
             </NumberPicker>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/day_of_week_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/monday_cb"
+                android:text="M"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </CheckBox>
+            <CheckBox
+                android:id="@+id/tuesday_cb"
+                android:text="T"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </CheckBox>
+            <CheckBox
+                android:id="@+id/wednesday_cb"
+                android:text="W"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </CheckBox>
+            <CheckBox
+                android:id="@+id/thursday_cb"
+                android:text="Th"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </CheckBox>
+            <CheckBox
+                android:id="@+id/friday_cb"
+                android:text="F"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </CheckBox>
+            <CheckBox
+                android:id="@+id/saturday_cb"
+                android:text="S"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </CheckBox>
+            <CheckBox
+                android:id="@+id/sunday_cb"
+                android:text="Su"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </CheckBox>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/hour_container"
@@ -95,7 +143,7 @@
             <NumberPicker
                 android:id="@+id/hour_picker"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="40dp">
             </NumberPicker>
         </LinearLayout>
         <LinearLayout
@@ -111,7 +159,7 @@
             <NumberPicker
                 android:id="@+id/minute_picker"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="40dp">
             </NumberPicker>
         </LinearLayout>
     </LinearLayout>

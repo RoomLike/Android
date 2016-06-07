@@ -30,6 +30,7 @@ public class GroceryListener extends BaseListener {
     public void onClick(View v) {
         if(v.equals(views.get("ADD_BUTTON"))){
             // TODO : link to add grocery item screen
+            MainActivity.changeScreen(MainActivity.GROCERY_SCREEN_EDIT);
         }
     }
 }

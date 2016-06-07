@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.darkheaven.roomlike.activity.MainActivity;
@@ -31,6 +32,7 @@ public class ChoreEditListener extends BaseListener implements AdapterView.OnIte
             if(objectID == -1000){
                 // add new
                 addNewObject();
+                MainActivity.changeScreen(MainActivity.CHORE_SCREEN);
             }else{
                 updateObject();
             }
@@ -39,7 +41,9 @@ public class ChoreEditListener extends BaseListener implements AdapterView.OnIte
 
     @Override
     public void initViews() {
-        ArrayList<String> users = MainActivity.os.group.getUsersNames();
+        ArrayList<String> users = new ArrayList<>();
+        users.add("");
+        users.addAll(MainActivity.os.group.getUsersNames());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, users);
         (((Spinner) views.get(ChoreEditFragment.ASSIGNED_TO_SPINNER))).setAdapter(adapter);
         (((Spinner) views.get(ChoreEditFragment.ASSIGNED_TO_SPINNER))).setOnItemSelectedListener(this);
@@ -61,8 +65,12 @@ public class ChoreEditListener extends BaseListener implements AdapterView.OnIte
 
     public void addNewObject(){
         Chore chore = new Chore();
-        chore.setSchedule(ScheduleListener.getSchedule());
-        chore.setAssignedUser(MainActivity.os.getUserByName(assignedToSelected));
+        chore.setText(((EditText)views.get(ChoreEditFragment.TITLE_FIELD)).getText().toString());
+        chore.setSchedule(((ScheduleListener)MainActivity.scheduleListener).getSchedule());
+        chore.getSchedule().setObject(chore);
+        if(!assignedToSelected.equals("")) {
+            chore.setAssignedUser(MainActivity.os.getUserByName(assignedToSelected));
+        }
         MainActivity.os.addObject(chore);
     }
 

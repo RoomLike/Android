@@ -14,7 +14,10 @@ import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.adapter.PagerAdapter;
 import com.darkheaven.roomlike.fragment.*;
 import com.darkheaven.roomlike.listener.*;
+import com.darkheaven.roomlike.object.BaseObject;
+import com.darkheaven.roomlike.object.Chore;
 import com.darkheaven.roomlike.object.ObjectStore;
+import com.darkheaven.roomlike.utils.L;
 import com.darkheaven.roomlike.utils.SP;
 import com.darkheaven.roomlike.utils.TestUtils;
 
@@ -39,6 +42,10 @@ public class MainActivity extends FragmentActivity {
     static FrameLayout backgroundScheduleContainer;
     static LinearLayout bodyContainer;
 
+    public static final String CHORE_SCREEN = "chore_screen";
+    public static final String GROCERY_SCREEN = "grocery_screen";
+    public static final String PAYMENT_SCREEN = "payment_screen";
+
     public static final String CHORE_SCREEN_EDIT = "chore_screen_edit";
     public static final String GROCERY_SCREEN_EDIT = "grocery_screen_edit";
     public static final String PAYMENT_SCREEN_EDIT = "payment_screen_edit";
@@ -53,8 +60,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        //SP.saveString(SP.USER_NAME_KEY, "Curtis");
-        //SP.saveInt(SP.GROUP_ID_KEY, 1);
+        SP.saveString(SP.USER_NAME_KEY, "Curtis");
+        SP.saveInt(SP.GROUP_ID_KEY, 1);
         manager = getSupportFragmentManager();
         TestUtils.init();
         initializeFragments();
@@ -67,7 +74,7 @@ public class MainActivity extends FragmentActivity {
         manager.beginTransaction().add(R.id.tool_bar, toolbarFragment).commit();
 
         pager.setCurrentItem(1);
-        pager.setOffscreenPageLimit(3);
+        pager.setOffscreenPageLimit(6);
         pageListener = new MyPagerListener();
         pageListener.setFragmentManager(manager);
         pager.setOnPageChangeListener(pageListener);
@@ -85,17 +92,33 @@ public class MainActivity extends FragmentActivity {
             mainIsShowing = false;
             // TODO : clean scheduleFragment views
             if (newScreen.equals(CHORE_SCREEN_EDIT)) {
-                manager.beginTransaction().add(R.id.background_fragment, editFragments.get(0)).commit();
+                mainIsShowing = false;
+                if(editFragments.get(0).isAdded()){
+                    manager.beginTransaction().replace(R.id.background_fragment, editFragments.get(0)).commit();
+                    manager.beginTransaction().replace(R.id.background_schedule_fragment, scheduleFragment).commit();
+                }else {
+                    manager.beginTransaction().add(R.id.background_fragment, editFragments.get(0)).commit();
+                    manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
+                }
                 ((ScheduleListener)scheduleListener).setScreen(0);
-                manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
             }else if(newScreen.equals(GROCERY_SCREEN_EDIT)){
-                manager.beginTransaction().add(R.id.background_fragment, editFragments.get(1)).commit();
-                ((ScheduleListener)scheduleListener).setScreen(1);
-                manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
+                if(editFragments.get(1).isAdded()) {
+                    manager.beginTransaction().replace(R.id.background_fragment, editFragments.get(1)).commit();
+                    manager.beginTransaction().replace(R.id.background_schedule_fragment, scheduleFragment).commit();
+                }else{
+                    manager.beginTransaction().add(R.id.background_fragment, editFragments.get(1)).commit();
+                    manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
+                }
+                ((ScheduleListener) scheduleListener).setScreen(1);
             }else if(newScreen.equals(PAYMENT_SCREEN_EDIT)){
-                manager.beginTransaction().add(R.id.background_fragment, editFragments.get(2)).commit();
-                ((ScheduleListener)scheduleListener).setScreen(2);
-                manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
+                if(editFragments.get(2).isAdded()){
+                    manager.beginTransaction().replace(R.id.background_fragment, editFragments.get(2)).commit();
+                    manager.beginTransaction().replace(R.id.background_schedule_fragment, scheduleFragment).commit();
+                }else {
+                    manager.beginTransaction().add(R.id.background_fragment, editFragments.get(2)).commit();
+                    manager.beginTransaction().add(R.id.background_schedule_fragment, scheduleFragment).commit();
+                }
+                ((ScheduleListener) scheduleListener).setScreen(2);
             }
         }else if(newScreen.equals(LOGIN_SCREEN)) {
             bodyContainer.setVisibility(View.GONE);
@@ -103,6 +126,13 @@ public class MainActivity extends FragmentActivity {
             mainIsShowing = false;
             manager.beginTransaction().add(R.id.background_fragment, loginFragment).commit();
         }else{
+            if(newScreen.equals(CHORE_SCREEN)){
+                listeners.get(1).initViews();
+            }else if(newScreen.equals(GROCERY_SCREEN)){
+                listeners.get(2).initViews();
+            }else if(newScreen.equals(PAYMENT_SCREEN)){
+                listeners.get(3).initViews();
+            }
             bodyContainer.setVisibility(View.VISIBLE);
             backgroundContainer.setVisibility(View.GONE);
             mainIsShowing = true;
@@ -172,7 +202,7 @@ public class MainActivity extends FragmentActivity {
     public void onResume(){
         super.onResume();
         if(SP.getString(SP.USER_NAME_KEY).equals("")){
-            changeScreen(LOGIN_SCREEN);
+            //changeScreen(LOGIN_SCREEN);
         }
     }
 }

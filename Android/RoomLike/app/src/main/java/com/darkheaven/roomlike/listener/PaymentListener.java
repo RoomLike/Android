@@ -31,6 +31,7 @@ public class PaymentListener extends BaseListener {
     public void onClick(View v) {
         if(v.equals(views.get("ADD_BUTTON"))){
             // TODO : link to add payment screen
+            MainActivity.changeScreen(MainActivity.PAYMENT_SCREEN_EDIT);
         }
     }
 }
