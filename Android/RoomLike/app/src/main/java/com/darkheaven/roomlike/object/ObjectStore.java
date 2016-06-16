@@ -25,19 +25,31 @@ public class ObjectStore {
     }
 
     public void addObject(BaseObject object){
-        int highest = 0;
+        boolean exists = false;
         for(BaseObject o : objects){
-            if(o.getObjectID() > highest){
-                highest = o.getObjectID();
+            if(o.getObjectID() == object.getObjectID()) {
+                exists = true;
+                break;
             }
         }
-        object.setObjectID(highest + 1);
-        objects.add(object);
+        if(!exists) {
+            objects.add(object);
+            helper.insertObject(object);
+        }
     }
 
     public User getUserByName(String name){
         for(User u : group.getUsers().values()){
             if(u.getUserName().equals(name)){
+                return u;
+            }
+        }
+        return null;
+    }
+
+    public User getUserByID(int userID){
+        for(User u : group.getUsers().values()){
+            if(u.getUserID() == userID){
                 return u;
             }
         }
@@ -82,6 +94,16 @@ public class ObjectStore {
         ArrayList<BaseObject> list = new ArrayList<>();
         for(BaseObject boo : objects){
             if(boo instanceof Payment){
+                list.add(boo);
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<BaseObject> getMessages(){
+        ArrayList<BaseObject> list = new ArrayList<>();
+        for(BaseObject boo : objects){
+            if(boo instanceof Message){
                 list.add(boo);
             }
         }

@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="10">
-    <LinearLayout
+    <ListView
         android:id="@+id/message_container"
         android:layout_weight="9"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:stackFromBottom="true"
+        android:transcriptMode="normal">
+    </ListView>
     <LinearLayout
         android:id="@+id/send_container"
         android:layout_weight="1"

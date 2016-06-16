@@ -14,6 +14,7 @@ public class ObjectEditDialog extends BaseDialog {
         super(context);
     }
 
+    @Override
     public void init(){
         setContentView(R.layout.dialog_object_edit);
 

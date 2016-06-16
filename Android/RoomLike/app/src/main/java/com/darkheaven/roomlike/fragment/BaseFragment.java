@@ -27,4 +27,10 @@ public class BaseFragment extends Fragment {
     public void registerViews(){
 
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        registerViews();
+    }
 }

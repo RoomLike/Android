@@ -15,6 +15,7 @@ import com.darkheaven.roomlike.adapter.PagerAdapter;
 import com.darkheaven.roomlike.fragment.*;
 import com.darkheaven.roomlike.listener.*;
 import com.darkheaven.roomlike.object.ObjectStore;
+import com.darkheaven.roomlike.sync.GetMessages;
 import com.darkheaven.roomlike.sync.GetObjects;
 import com.darkheaven.roomlike.utils.SP;
 import com.darkheaven.roomlike.utils.TestUtils;
@@ -40,6 +41,7 @@ public class MainActivity extends FragmentActivity {
     static FrameLayout backgroundScheduleContainer;
     static LinearLayout bodyContainer;
 
+    public static final String MESSAGE_SCREEN = "message_screen";
     public static final String CHORE_SCREEN = "chore_screen";
     public static final String GROCERY_SCREEN = "grocery_screen";
     public static final String PAYMENT_SCREEN = "payment_screen";
@@ -59,9 +61,10 @@ public class MainActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        new GetObjects().execute("http://10.0.2.2:8080/Chore/1");
+        new GetObjects().execute("http://10.0.2.2:8080/objects/Chore/1");
 
         SP.saveString(SP.USER_NAME_KEY, "Curtis");
+        SP.saveInt(SP.USER_ID_KEY, 1);
         SP.saveInt(SP.GROUP_ID_KEY, 1);
         manager = getSupportFragmentManager();
         TestUtils.init();
@@ -125,17 +128,19 @@ public class MainActivity extends FragmentActivity {
             backgroundContainer.setVisibility(View.VISIBLE);
             mainIsShowing = false;
             manager.beginTransaction().add(R.id.background_fragment, loginFragment).commit();
-        }else{
-            if(newScreen.equals(CHORE_SCREEN)){
-                listeners.get(1).initViews();
-            }else if(newScreen.equals(GROCERY_SCREEN)){
-                listeners.get(2).initViews();
-            }else if(newScreen.equals(PAYMENT_SCREEN)){
-                listeners.get(3).initViews();
-            }
+        }else {
             bodyContainer.setVisibility(View.VISIBLE);
             backgroundContainer.setVisibility(View.GONE);
             mainIsShowing = true;
+            if(newScreen.equals(MESSAGE_SCREEN)){
+                pager.setCurrentItem(0);
+            }else if(newScreen.equals(CHORE_SCREEN)){
+                pager.setCurrentItem(1);
+            }else if(newScreen.equals(GROCERY_SCREEN)){
+                pager.setCurrentItem(2);
+            }else if(newScreen.equals(PAYMENT_SCREEN)){
+                pager.setCurrentItem(3);
+            }
         }
     }
 
@@ -202,7 +207,8 @@ public class MainActivity extends FragmentActivity {
     public void onResume(){
         super.onResume();
         if(SP.getString(SP.USER_NAME_KEY).equals("")){
-            //changeScreen(LOGIN_SCREEN);
+            changeScreen(LOGIN_SCREEN);
+            mainIsShowing = false;
         }
     }
 }

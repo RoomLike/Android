@@ -41,7 +41,7 @@ public class GetObjects extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String s) {
-        // insert into local db
+        // parse and insert into local db
 
     }
 }

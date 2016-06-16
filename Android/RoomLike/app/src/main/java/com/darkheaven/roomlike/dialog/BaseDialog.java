@@ -14,4 +14,6 @@ public class BaseDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.context = context;
     }
+
+    public void init(){}
 }

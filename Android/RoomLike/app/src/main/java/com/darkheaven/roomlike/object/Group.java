@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class Group {
     HashMap<Integer,User> users;
     int groupID;
+    String groupName;
 
     public Group(){
         users = new HashMap<>();
@@ -20,14 +21,8 @@ public class Group {
     }
 
     public void addUserToGroup(User user){
-        int highest = 0;
-        for(int uID : users.keySet()){
-            if(uID > highest){
-                highest = uID;
-            }
-        }
         user.setGroup(this);
-        users.put(highest + 1, user);
+        users.put(user.getUserID(), user);
     }
 
     public HashMap<Integer, User> getUsers() {
@@ -52,5 +47,13 @@ public class Group {
             results.add(u.getUserName());
         }
         return results;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

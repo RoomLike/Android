@@ -21,6 +21,11 @@ public class LoginFragment extends BaseFragment {
     Button loginButton;
     Button newUserButton;
 
+    public static final String USER_NAME_EDITTEXT = "USER_NAME_EDITTEXT";
+    public static final String PASSWORD_EDITTEXT = "PASSWORD_EDITTEXT";
+    public static final String LOGIN_BUTTON = "LOGIN_BUTTON";
+    public static final String NEW_USER_BUTTON = "NEW_USER_BUTTON";
+
     public LoginFragment(){}
 
     public static BaseFragment newInstance(){
@@ -42,6 +47,11 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     public void registerViews() {
-
+        listener.registerView(USER_NAME_EDITTEXT, usernameField);
+        listener.registerView(PASSWORD_EDITTEXT, passwordField);
+        listener.registerView(LOGIN_BUTTON, loginButton);
+        listener.registerView(NEW_USER_BUTTON, newUserButton);
+        loginButton.setOnClickListener(listener);
+        newUserButton.setOnClickListener(listener);
     }
 }

@@ -6,6 +6,7 @@ package com.darkheaven.roomlike.object;
 public class User {
     int userID;
     String userName;
+    String password;
     Group group;
 
     public User(){
@@ -13,6 +14,11 @@ public class User {
     }
 
     public User(String userName){
+        this.userName = userName;
+    }
+
+    public User(int userID, String userName){
+        this.userID = userID;
         this.userName = userName;
     }
 
@@ -30,6 +36,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Group getGroup() {

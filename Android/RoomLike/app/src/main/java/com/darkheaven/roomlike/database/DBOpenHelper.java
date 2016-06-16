@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.darkheaven.roomlike.R;
+import com.darkheaven.roomlike.object.BaseObject;
+import com.darkheaven.roomlike.utils.SP;
 
 /**
  * Created by tinyiota on 5/31/16.
@@ -112,5 +114,22 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public void insertMessage(BaseObject object){
+        StringBuilder sqlA = new StringBuilder();
+        sqlA.setLength(0);
+        sqlA.append("INSERT INTO Objects ");
+        sqlA.append("(");
+        sqlA.append("     GroupID, MakerID, Text ");
+        sqlA.append(")");
+        sqlA.append("VALUES");
+        sqlA.append("(");
+        sqlA.append(Integer.toString(SP.getInt(SP.GROUP_ID_KEY)));
+        sqlA.append(",").append(Integer.toString(object.getMaker().getUserID()));
+        sqlA.append(",'").append(object.getText()).append("'");
+        sqlA.append(")");
+        db.execSQL(sqlA.toString());
+        sqlA.setLength(0);
     }
 }

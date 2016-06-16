@@ -10,9 +10,10 @@ public class TestUtils {
     public static void init(){
         // users
 
-        MainActivity.os.addUserToGroup(new User("Curtis"));
-        MainActivity.os.addUserToGroup(new User("Sophia"));
-        MainActivity.os.addUserToGroup(new User("Nik"));
+        MainActivity.os.addUserToGroup(new User(1, "Curtis"));
+        MainActivity.os.addUserToGroup(new User(2, "Sophia"));
+        MainActivity.os.addUserToGroup(new User(3, "Travis"));
+        MainActivity.os.addUserToGroup(new User(4, "Karyn"));
 
         // objects
         // Chore:

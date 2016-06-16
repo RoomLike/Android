@@ -16,6 +16,10 @@ import com.darkheaven.roomlike.R;
 public class SettingsFragment extends BaseFragment {
     Button createGroup;
     Button joinGroup;
+
+    public static final String CREATE_GROUP_BUTTON = "CREATE_GROUP_BUTTON";
+    public static final String JOIN_GROUP_BUTTON = "JOIN_GROUP_BUTTON";
+
     public SettingsFragment(){}
 
     public static BaseFragment newInstance(){
@@ -35,7 +39,9 @@ public class SettingsFragment extends BaseFragment {
 
     @Override
     public void registerViews() {
-        listener.registerView("CREATE_GROUP", createGroup);
-        listener.registerView("JOIN_GROUP", joinGroup);
+        listener.registerView(CREATE_GROUP_BUTTON, createGroup);
+        listener.registerView(JOIN_GROUP_BUTTON, joinGroup);
+        createGroup.setOnClickListener(listener);
+        joinGroup.setOnClickListener(listener);
     }
 }
