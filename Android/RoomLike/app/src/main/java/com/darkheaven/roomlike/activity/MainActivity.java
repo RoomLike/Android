@@ -14,10 +14,8 @@ import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.adapter.PagerAdapter;
 import com.darkheaven.roomlike.fragment.*;
 import com.darkheaven.roomlike.listener.*;
-import com.darkheaven.roomlike.object.BaseObject;
-import com.darkheaven.roomlike.object.Chore;
 import com.darkheaven.roomlike.object.ObjectStore;
-import com.darkheaven.roomlike.utils.L;
+import com.darkheaven.roomlike.sync.GetObjects;
 import com.darkheaven.roomlike.utils.SP;
 import com.darkheaven.roomlike.utils.TestUtils;
 
@@ -60,6 +58,9 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+        new GetObjects().execute("http://10.0.2.2:8080/Chore/1");
+
         SP.saveString(SP.USER_NAME_KEY, "Curtis");
         SP.saveInt(SP.GROUP_ID_KEY, 1);
         manager = getSupportFragmentManager();
