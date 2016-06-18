@@ -13,6 +13,7 @@ public class Group {
 
     public Group(){
         users = new HashMap<>();
+        groupID = 0;
     }
 
     public Group(int groupID, HashMap<Integer,User> users){

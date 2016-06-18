@@ -8,8 +8,8 @@ public class Chore extends BaseObject {
 
     public Chore(){}
 
-    public Chore(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser, Schedule schedule){
-        super(group, maker, text, assignedUser, dibsUser, completedUser);
+    public Chore(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser, Schedule schedule, String timeCreated){
+        super(group, maker, text, assignedUser, dibsUser, completedUser, timeCreated);
         this.schedule = schedule;
     }
 

@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity {
     public static final String LOGIN_SCREEN = "login_screen";
     public static final String ACTIVE_SCREEN = "active_screen_edit";
 
-    public static final ObjectStore os = new ObjectStore();
+    public static ObjectStore os;
     public static boolean mainIsShowing;
 
     @Override
@@ -60,14 +60,15 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        os = new ObjectStore();
+        os.init();
 
-        new GetObjects().execute("http://10.0.2.2:8080/objects/Chore/1");
-
+/*
         SP.saveString(SP.USER_NAME_KEY, "Curtis");
         SP.saveInt(SP.USER_ID_KEY, 1);
         SP.saveInt(SP.GROUP_ID_KEY, 1);
+*/
         manager = getSupportFragmentManager();
-        TestUtils.init();
         initializeFragments();
 
         pagerAdapter = new PagerAdapter(manager);
@@ -186,7 +187,7 @@ public class MainActivity extends FragmentActivity {
         scheduleFragment.setListener(scheduleListener);
         scheduleListener.setView(scheduleFragment);
 
-        if(SP.getString(SP.USER_NAME_KEY).equals("")){
+        if(!os.helper.userExists()){
             loginFragment = LoginFragment.newInstance();
             loginListener = new LoginListener(this);
             loginFragment.setListener(loginListener);
@@ -206,7 +207,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        if(SP.getString(SP.USER_NAME_KEY).equals("")){
+        if(!os.helper.userExists()){
             changeScreen(LOGIN_SCREEN);
             mainIsShowing = false;
         }

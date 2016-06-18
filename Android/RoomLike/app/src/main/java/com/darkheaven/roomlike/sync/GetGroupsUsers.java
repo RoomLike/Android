@@ -1,15 +1,14 @@
 package com.darkheaven.roomlike.sync;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.darkheaven.roomlike.activity.MainActivity;
-import com.darkheaven.roomlike.listener.BaseListener;
-import com.darkheaven.roomlike.listener.LoginListener;
 import com.darkheaven.roomlike.object.Group;
 import com.darkheaven.roomlike.object.User;
 import com.darkheaven.roomlike.utils.L;
-import com.darkheaven.roomlike.utils.SP;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,17 +17,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by tinyiota on 6/16/16.
  */
-public class GetUser extends AsyncTask<String,Void,Boolean> {
-    BaseListener listener;
-
+public class GetGroupsUsers extends AsyncTask<String,Void,Boolean> {
     @Override
     protected Boolean doInBackground(String... params) {
         HttpURLConnection connection = null;
         StringBuilder builder = new StringBuilder();
+        boolean success = false;
         try {
             URL url = new URL(params[0]);
             connection = (HttpURLConnection)url.openConnection();
@@ -44,21 +44,22 @@ public class GetUser extends AsyncTask<String,Void,Boolean> {
         } finally {
             if(connection != null){
                 connection.disconnect();
+                success = true;
             }
         }
-        L.e("GetObjects");
-        boolean success = false;
-        if(!builder.toString().equals("DNE")){
-            try {
-                JSONObject object = new JSONObject(builder.toString());
-                SP.saveInt(SP.USER_ID_KEY, object.getInt("UserID"));
-                SP.saveString(SP.USER_NAME_KEY, object.getString("UserName"));
-                SP.saveInt(SP.GROUP_ID_KEY, object.getInt("GroupID"));
-                SP.saveString(SP.GROUP_NAME_KEY, object.getString("GroupName"));
-                success = true;
-            } catch (JSONException e) {
-                e.printStackTrace();
+        L.e("GetGroups: " + builder.toString());
+        try {
+            JSONObject jsonObject = new JSONObject(builder.toString());
+            JSONArray groupsArray = jsonObject.getJSONArray("Groups");
+            for(int i = 0; i < groupsArray.length(); i++){
+                JSONObject row = groupsArray.getJSONObject(i);
+                User user = new User();
+                user.setUserID(row.getInt("UserID"));
+                user.setUserName(row.getString("UserName"));
+                MainActivity.os.addUserToGroup(user);
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return success;
     }
@@ -66,15 +67,9 @@ public class GetUser extends AsyncTask<String,Void,Boolean> {
     @Override
     protected void onPostExecute(Boolean success) {
         if(success){
-            loginSuccess();
+            L.e("successfully inserted users.");
+        }else{
+            L.e("users not inserted correctly.");
         }
-    }
-
-    public void setListener(BaseListener listener){
-        this.listener = listener;
-    }
-
-    public void loginSuccess(){
-        ((LoginListener)listener).loginSuccess();
     }
 }

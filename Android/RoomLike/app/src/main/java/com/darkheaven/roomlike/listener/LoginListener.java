@@ -7,7 +7,9 @@ import android.widget.Toast;
 
 import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.fragment.LoginFragment;
+import com.darkheaven.roomlike.sync.GetAll;
 import com.darkheaven.roomlike.sync.GetUser;
+import com.darkheaven.roomlike.utils.L;
 
 /**
  * Created by tinyiota on 5/31/16.
@@ -30,13 +32,13 @@ public class LoginListener extends BaseListener {
         }
     }
 
-    @Override
-    public void initViews() {
-        super.initViews();
-    }
-
     public void loginSuccess(){
         Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show();
+        L.e("Starting GetAll");
+        new GetAll(this).execute();
+    }
+
+    public void downloadComplete(){
         MainActivity.changeScreen(MainActivity.GROCERY_SCREEN);
     }
 }

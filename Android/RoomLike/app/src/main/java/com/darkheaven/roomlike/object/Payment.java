@@ -11,8 +11,8 @@ public class Payment extends BaseObject{
 
     public Payment(){}
 
-    public Payment(Group group, User makerID, String text, User assignedUser, User dibsUser, User completedUser, User toUser, User fromUser, double amount, Schedule schedule){
-        super(group, makerID, text, assignedUser, dibsUser, completedUser);
+    public Payment(Group group, User makerID, String text, User assignedUser, User dibsUser, User completedUser, User toUser, User fromUser, double amount, Schedule schedule, String timeCreated){
+        super(group, makerID, text, assignedUser, dibsUser, completedUser, timeCreated);
         this.toUser = toUser;
         this.fromUser = fromUser;
         this.amount = amount;

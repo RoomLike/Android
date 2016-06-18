@@ -8,9 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.darkheaven.roomlike.R;
+import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.object.BaseObject;
 import com.darkheaven.roomlike.object.GroceryItem;
 import com.darkheaven.roomlike.object.Payment;
+import com.darkheaven.roomlike.sync.UpdateDibs;
+import com.darkheaven.roomlike.utils.SP;
 
 import java.util.ArrayList;
 
@@ -40,7 +43,7 @@ public class PaymentAdapter extends ListAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        Payment item = (Payment)getItem(position);
+        final Payment item = (Payment)getItem(position);
         holder.objectTitle.setText(item.getText());
 
         StringBuilder details = new StringBuilder();
@@ -63,7 +66,8 @@ public class PaymentAdapter extends ListAdapter {
             @Override
             public void onClick(View v) {
                 // TODO : mark item complete
-
+                item.setDibsUser(MainActivity.os.getUserByID(SP.getInt(SP.USER_ID_KEY)));
+                new UpdateDibs().execute(item);
                 // TODO : notify other users of complete
 
             }

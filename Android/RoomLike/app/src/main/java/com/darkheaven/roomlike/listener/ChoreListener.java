@@ -11,6 +11,7 @@ import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.adapter.ChoreAdapter;
 import com.darkheaven.roomlike.object.BaseObject;
+import com.darkheaven.roomlike.sync.GetObjects;
 import com.darkheaven.roomlike.utils.L;
 
 import java.util.ArrayList;
@@ -42,5 +43,10 @@ public class ChoreListener extends BaseListener {
         if(v.equals(views.get("ADD_BUTTON"))){
             MainActivity.changeScreen(MainActivity.CHORE_SCREEN_EDIT);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        new GetObjects(this).execute("Chore");
     }
 }

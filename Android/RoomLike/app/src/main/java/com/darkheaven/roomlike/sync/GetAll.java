@@ -4,11 +4,13 @@ import android.os.AsyncTask;
 
 import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.listener.BaseListener;
+import com.darkheaven.roomlike.listener.LoginListener;
 import com.darkheaven.roomlike.object.BaseObject;
 import com.darkheaven.roomlike.object.Chore;
 import com.darkheaven.roomlike.object.GroceryItem;
-import com.darkheaven.roomlike.object.HelpItem;
+import com.darkheaven.roomlike.object.Message;
 import com.darkheaven.roomlike.object.Payment;
+import com.darkheaven.roomlike.object.User;
 import com.darkheaven.roomlike.utils.L;
 import com.darkheaven.roomlike.utils.SP;
 
@@ -24,21 +26,23 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by tinyiota on 6/14/16.
+ * Created by tinyiota on 6/17/16.
  */
-public class GetObjects extends AsyncTask<String,Void,ArrayList<BaseObject>> {
+public class GetAll extends AsyncTask<Void,Void,ArrayList<BaseObject>> {
     BaseListener listener;
 
-    public GetObjects(BaseListener listener){
+    public GetAll(BaseListener listener){
         this.listener = listener;
     }
 
     @Override
-    protected ArrayList<BaseObject> doInBackground(String... params) {
+    protected ArrayList<BaseObject> doInBackground(Void... params) {
         HttpURLConnection connection = null;
         StringBuilder builder = new StringBuilder();
+        L.e("IN GetAll");
+        builder.setLength(0);
         try {
-            URL url = new URL("https://10.0.2.2:8080/objects/" + params[0] + "/" + SP.getInt(SP.GROUP_ID_KEY));
+            URL url = new URL("http://10.0.2.2:8080/get_all/" + SP.getInt(SP.GROUP_ID_KEY));
             connection = (HttpURLConnection)url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
@@ -54,16 +58,27 @@ public class GetObjects extends AsyncTask<String,Void,ArrayList<BaseObject>> {
                 connection.disconnect();
             }
         }
-        L.e("GetObjects");
-
+        L.e(builder.toString());
         ArrayList<BaseObject> objects = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(builder.toString());
-            JSONArray groupsArray = jsonObject.getJSONArray("Help");
+            JSONArray groupsArray = jsonObject.getJSONArray("Objects");
+            JSONArray usersArray = jsonObject.getJSONArray("Users");
+            for(int i = 0; i < usersArray.length(); i++){
+                JSONObject row = usersArray.getJSONObject(i);
+                User user = new User();
+                user.setUserID(row.getInt("UserID"));
+                user.setUserName(row.getString("UserName"));
+                if(MainActivity.os.group.getGroupID() > 0){
+                    MainActivity.os.group.setGroupID(row.getInt("GroupID"));
+                    MainActivity.os.group.setGroupName(row.getString("GroupName"));
+                }
+                MainActivity.os.addUserToGroup(user);
+            }
             for(int i = 0; i < groupsArray.length(); i++){
                 JSONObject row = groupsArray.getJSONObject(i);
                 BaseObject object = new BaseObject();
-                switch (params[0]){
+                switch (row.getString("ObjectType")){
                     case "Chore":
                         object = new Chore();
                         break;
@@ -75,9 +90,16 @@ public class GetObjects extends AsyncTask<String,Void,ArrayList<BaseObject>> {
                         ((Payment)object).setAmount(row.getDouble("Amount"));
                         break;
                 }
-                object.setDibsUser(MainActivity.os.getUserByID(row.getInt("DibsUser")));
-                object.setCompletedUser(MainActivity.os.getUserByID(row.getInt("CompletedUser")));
-                object.setMaker(MainActivity.os.getUserByID(row.getInt("MakerID")));
+                if(!row.getString("DibsUser").equals("None")){
+                    object.setDibsUser(MainActivity.os.getUserByID(row.getInt("DibsUser")));
+                }
+                if(!row.getString("CompletedUser").equals("None")) {
+                    object.setCompletedUser(MainActivity.os.getUserByID(row.getInt("CompletedUser")));
+                }
+                if(!row.getString("MakerID").equals("None")) {
+                    object.setMaker(MainActivity.os.getUserByID(row.getInt("MakerID")));
+                }
+
                 object.setText(row.getString("Text"));
                 object.setGroup(MainActivity.os.group);
                 object.setObjectID(row.getInt("ObjectID"));
@@ -91,10 +113,9 @@ public class GetObjects extends AsyncTask<String,Void,ArrayList<BaseObject>> {
 
     @Override
     protected void onPostExecute(ArrayList<BaseObject> objects) {
-        // parse and insert into local db
-        for(int i = 0; i < objects.size(); i++){
-            MainActivity.os.addObject(objects.get(i));
+        for(BaseObject object : objects){
+            MainActivity.os.addObject(object);
         }
-        listener.initViews();
+        ((LoginListener)listener).downloadComplete();
     }
 }

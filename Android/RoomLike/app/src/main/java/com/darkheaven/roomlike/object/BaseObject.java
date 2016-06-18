@@ -11,18 +11,20 @@ public class BaseObject {
     User assignedUser;
     User dibsUser;
     User completedUser;
+    String timeCreated;
 
     public BaseObject() {
 
     }
 
-    public BaseObject(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser) {
+    public BaseObject(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser, String timeCreated) {
         this.group = group;
         this.maker = maker;
         this.text = text;
         this.assignedUser = assignedUser;
         this.dibsUser = dibsUser;
         this.completedUser = completedUser;
+        this.timeCreated = timeCreated;
     }
 
     public void update(BaseObject object){}
@@ -89,5 +91,13 @@ public class BaseObject {
 
     public void setCompletedUser(User completedUser) {
         this.completedUser = completedUser;
+    }
+
+    public String getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(String timeCreated) {
+        this.timeCreated = timeCreated;
     }
 }

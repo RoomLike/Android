@@ -9,8 +9,8 @@ public class Message extends BaseObject {
     String messageTime;
 
     public Message(){}
-    public Message(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser){
-        super(group, maker, text, assignedUser, dibsUser, completedUser);
+    public Message(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser, String timeCreated){
+        super(group, maker, text, assignedUser, dibsUser, completedUser, timeCreated);
     }
 
     public String getMessageTime() {

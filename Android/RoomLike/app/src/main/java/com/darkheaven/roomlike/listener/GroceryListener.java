@@ -7,6 +7,7 @@ import android.widget.ListView;
 import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.adapter.GroceryAdapter;
 import com.darkheaven.roomlike.object.BaseObject;
+import com.darkheaven.roomlike.sync.GetObjects;
 
 import java.util.ArrayList;
 
@@ -32,5 +33,10 @@ public class GroceryListener extends BaseListener {
             // TODO : link to add grocery item screen
             MainActivity.changeScreen(MainActivity.GROCERY_SCREEN_EDIT);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        new GetObjects(this).execute("GroceryItem");
     }
 }

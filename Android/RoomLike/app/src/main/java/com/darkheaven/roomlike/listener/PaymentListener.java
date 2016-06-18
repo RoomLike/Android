@@ -8,6 +8,7 @@ import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.adapter.ChoreAdapter;
 import com.darkheaven.roomlike.adapter.PaymentAdapter;
 import com.darkheaven.roomlike.object.BaseObject;
+import com.darkheaven.roomlike.sync.GetObjects;
 
 import java.util.ArrayList;
 
@@ -33,5 +34,10 @@ public class PaymentListener extends BaseListener {
             // TODO : link to add payment screen
             MainActivity.changeScreen(MainActivity.PAYMENT_SCREEN_EDIT);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        new GetObjects(this).execute("Payment");
     }
 }

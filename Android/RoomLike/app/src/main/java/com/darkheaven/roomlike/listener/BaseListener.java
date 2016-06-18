@@ -1,6 +1,7 @@
 package com.darkheaven.roomlike.listener;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 /**
  * Created by tinyiota on 5/27/16.
  */
-public class BaseListener implements View.OnClickListener, View.OnLongClickListener, AdapterView.OnItemClickListener {
+public class BaseListener implements View.OnClickListener, View.OnLongClickListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     HashMap<String,View> views;
     BaseFragment fragment;
     public ListAdapter adapter;
@@ -49,6 +50,11 @@ public class BaseListener implements View.OnClickListener, View.OnLongClickListe
     @Override
     public boolean onLongClick(View v) {
         return false;
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 }
 

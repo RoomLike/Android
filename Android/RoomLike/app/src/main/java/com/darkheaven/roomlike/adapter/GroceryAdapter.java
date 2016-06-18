@@ -8,8 +8,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.darkheaven.roomlike.R;
+import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.object.BaseObject;
 import com.darkheaven.roomlike.object.GroceryItem;
+import com.darkheaven.roomlike.sync.UpdateDibs;
+import com.darkheaven.roomlike.utils.SP;
 
 import java.util.ArrayList;
 
@@ -39,7 +42,7 @@ public class GroceryAdapter extends ListAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        GroceryItem item = (GroceryItem)getItem(position);
+        final GroceryItem item = (GroceryItem)getItem(position);
         holder.objectTitle.setText(item.getText());
 
         StringBuilder details = new StringBuilder();
@@ -60,9 +63,8 @@ public class GroceryAdapter extends ListAdapter {
             @Override
             public void onClick(View v) {
                 // TODO : mark item dibs
-
-                // TODO : notify other users of dibs
-
+                item.setDibsUser(MainActivity.os.getUserByID(SP.getInt(SP.USER_ID_KEY)));
+                new UpdateDibs().execute(item);
             }
         });
 
@@ -75,7 +77,8 @@ public class GroceryAdapter extends ListAdapter {
             @Override
             public void onClick(View v) {
                 // TODO : mark item complete
-
+                item.setCompletedUser(MainActivity.os.getUserByID(SP.getInt(SP.USER_ID_KEY)));
+                new UpdateDibs().execute(item);
                 // TODO : notify other users of complete
 
             }

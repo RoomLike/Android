@@ -9,9 +9,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.darkheaven.roomlike.R;
+import com.darkheaven.roomlike.activity.MainActivity;
 import com.darkheaven.roomlike.object.BaseObject;
 import com.darkheaven.roomlike.object.Chore;
 import com.darkheaven.roomlike.object.GroceryItem;
+import com.darkheaven.roomlike.sync.UpdateComplete;
+import com.darkheaven.roomlike.sync.UpdateDibs;
 import com.darkheaven.roomlike.utils.SP;
 
 import java.util.ArrayList;
@@ -72,6 +75,8 @@ public class ChoreAdapter extends ListAdapter {
                     // do nothing
                 }else{
                     tempDibs.setText(SP.getString(SP.USER_NAME_KEY));
+                    object.setDibsUser(MainActivity.os.getUserByID(SP.getInt(SP.USER_ID_KEY)));
+                    new UpdateDibs().execute(object);
                 }
 
             }
@@ -85,6 +90,8 @@ public class ChoreAdapter extends ListAdapter {
                     // do nothing
                 }else{
                     tempComplete.setText(SP.getString(SP.USER_NAME_KEY));
+                    object.setDibsUser(MainActivity.os.getUserByID(SP.getInt(SP.USER_ID_KEY)));
+                    new UpdateComplete().execute(object);
                 }
             }
         });

@@ -13,6 +13,7 @@ public class SP {
     public static final String USER_NAME_KEY = "PREFFS_USER_NAME_KEY";
     public static final String USER_ID_KEY = "PREFFS_USER_ID_KEY";
     public static final String GROUP_ID_KEY = "PREFFS_GROUP_ID_KEY";
+    public static final String GROUP_NAME_KEY = "PREFFS_GROUP_NAME_KEY";
 
     public static SharedPreferences getSharedPreferences(){
         return RLApplication.getContext().getSharedPreferences(PREFFS_NAME, Context.MODE_PRIVATE);

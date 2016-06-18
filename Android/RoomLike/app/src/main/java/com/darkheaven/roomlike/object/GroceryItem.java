@@ -8,8 +8,8 @@ public class GroceryItem extends BaseObject {
 
     public GroceryItem(){}
 
-    public GroceryItem(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser, String severity){
-        super(group, maker, text, assignedUser, dibsUser, completedUser);
+    public GroceryItem(Group group, User maker, String text, User assignedUser, User dibsUser, User completedUser, String severity, String timeCreated){
+        super(group, maker, text, assignedUser, dibsUser, completedUser, timeCreated);
         this.severity = severity;
     }
 
