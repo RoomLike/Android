@@ -36,6 +36,8 @@ public class MessageFragment extends BaseFragment {
         messageContainer = (ListView)rootView.findViewById(R.id.message_container);
         newMessage = (EditText)rootView.findViewById(R.id.new_message);
         sendButton = (Button)rootView.findViewById(R.id.send_button);
+        registerViews();
+        listener.initViews();
         return rootView;
     }
 

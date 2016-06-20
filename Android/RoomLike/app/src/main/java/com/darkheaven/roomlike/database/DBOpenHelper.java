@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.darkheaven.roomlike.R;
 import com.darkheaven.roomlike.activity.MainActivity;
+import com.darkheaven.roomlike.activity.RLApplication;
 import com.darkheaven.roomlike.object.BaseObject;
 import com.darkheaven.roomlike.object.Chore;
 import com.darkheaven.roomlike.object.GroceryItem;
@@ -17,6 +18,7 @@ import com.darkheaven.roomlike.object.User;
 import com.darkheaven.roomlike.utils.SP;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by tinyiota on 5/31/16.
@@ -277,6 +279,76 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         cursor.close();
     }
 
+    public ArrayList<BaseObject> getWidgetObjects(){
+        ArrayList<BaseObject> objects = new ArrayList<>();
+        HashMap<Integer,User> users = new HashMap<>();
+        StringBuilder sqlA = new StringBuilder();
+        sqlA.setLength(0);
+        sqlA.append("SELECT ");
+        sqlA.append("   UserID ");
+        sqlA.append(" , UserName ");
+        sqlA.append("FROM Users;");
+        Cursor cursor = db.rawQuery(sqlA.toString(), null);
+        if(cursor.moveToFirst()){
+            while(!cursor.isAfterLast()){
+                User user = new User();
+                user.setUserID(cursor.getInt(cursor.getColumnIndex("UserID")));
+                user.setUserName(cursor.getString(cursor.getColumnIndex("UserName")));
+                users.put(user.getUserID(), user);
+                cursor.moveToNext();
+            }
+        }
+
+        sqlA.setLength(0);
+        sqlA.append("SELECT ");
+        sqlA.append("   GroupID ");
+        sqlA.append(" , MakerID ");
+        sqlA.append(" , ObjectType");
+        sqlA.append(" , Text ");
+        sqlA.append(" , ObjectID ");
+        sqlA.append(" , DibsUser ");
+        sqlA.append(" , CompletedUser ");
+        sqlA.append(" , TimeCreated ");
+        sqlA.append(" , Amount ");
+        sqlA.append("FROM Objects ");
+        sqlA.append("WHERE NOT ObjectType = 'Message' ");
+        cursor = db.rawQuery(sqlA.toString(), null);
+        if(cursor.moveToFirst()){
+            while(!cursor.isAfterLast()){
+                String objectType = cursor.getString(cursor.getColumnIndex("ObjectType"));
+                BaseObject object = new BaseObject();
+                switch (objectType){
+                    case "Chore":
+                        object = new Chore();
+                        break;
+                    case "GroceryItem":
+                        object = new GroceryItem();
+                        break;
+                    case "Payment":
+                        object = new Payment();
+                        ((Payment)object).setAmount(cursor.getDouble(cursor.getColumnIndex("Amount")));
+                        break;
+                    case "Message":
+                        object = new Message();
+                }
+                object.setObjectID(cursor.getInt(cursor.getColumnIndex("ObjectID")));
+                object.setText(cursor.getString(cursor.getColumnIndex("Text")));
+                object.setMaker(users.get(cursor.getInt(cursor.getColumnIndex("MakerID"))));
+                if(cursor.getInt(cursor.getColumnIndex("CompletedUser")) == 0) {
+                    object.setCompletedUser(users.get(cursor.getInt(cursor.getColumnIndex("CompletedUser"))));
+                }
+                if(cursor.getInt(cursor.getColumnIndex("DibsUser")) == 0) {
+                    object.setDibsUser(users.get(cursor.getInt(cursor.getColumnIndex("DibsUser"))));
+                }
+                object.setTimeCreated(cursor.getString(cursor.getColumnIndex("TimeCreated")));
+                objects.add(object);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        return objects;
+    }
+
     public boolean userExists(){
         StringBuilder sqlA = new StringBuilder();
         sqlA.setLength(0);
@@ -304,6 +376,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                 model.moveToNext();
             }
         }
+        model.close();
         return items;
     }
 }

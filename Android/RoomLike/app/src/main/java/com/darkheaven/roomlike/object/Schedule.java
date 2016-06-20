@@ -10,10 +10,11 @@ import java.util.Date;
  */
 public class Schedule {
     Frequency frequency;
+    int objectID;
     BaseObject object;
     ArrayList<User> users;
-    Date nextDate;
-    Date lastDate;
+    String nextDate;
+    String lastDate;
     ArrayList<Day> daysOfWeek;
     int dayOfMonth;
     int monthOfYear;
@@ -30,7 +31,7 @@ public class Schedule {
         daysOfWeek = new ArrayList<>();
     }
 
-    public Schedule(Frequency frequency, BaseObject object, ArrayList<User> users, Date nextDate, Date lastDate, ArrayList<Day> daysOfWeek, int dayOfMonth, int monthOfYear, int year, int hour, int minute, boolean isAM, int repeatEvery, boolean anyDay) {
+    public Schedule(Frequency frequency, BaseObject object, ArrayList<User> users, String nextDate, String lastDate, ArrayList<Day> daysOfWeek, int dayOfMonth, int monthOfYear, int year, int hour, int minute, boolean isAM, int repeatEvery, boolean anyDay) {
         this.frequency = frequency;
         this.object = object;
         this.users = users;
@@ -59,6 +60,14 @@ public class Schedule {
         this.frequency = frequency;
     }
 
+    public int getObjectID() {
+        return objectID;
+    }
+
+    public void setObjectID(int objectID) {
+        this.objectID = objectID;
+    }
+
     public BaseObject getObject() {
         return object;
     }
@@ -75,19 +84,19 @@ public class Schedule {
         this.users = users;
     }
 
-    public Date getNextDate() {
+    public String getNextDate() {
         return nextDate;
     }
 
-    public void setNextDate(Date nextDate) {
+    public void setNextDate(String nextDate) {
         this.nextDate = nextDate;
     }
 
-    public Date getLastDate() {
+    public String getLastDate() {
         return lastDate;
     }
 
-    public void setLastDate(Date lastDate) {
+    public void setLastDate(String lastDate) {
         this.lastDate = lastDate;
     }
 

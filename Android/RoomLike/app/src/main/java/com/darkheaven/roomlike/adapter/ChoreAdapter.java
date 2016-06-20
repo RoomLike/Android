@@ -52,11 +52,10 @@ public class ChoreAdapter extends ListAdapter {
         }
 
         if(object.getCompletedUser() != null){
-            holder.completeButton.setBackgroundColor(Color.RED);
             holder.completeButton.setText(object.getCompletedUser().getUserName());
             holder.dibsButton.setText("Completed");
         }else{
-            holder.completeButton.setBackgroundColor(Color.GREEN);
+            holder.completeButton.setText("Complete");
         }
 
         holder.objectTitle.setText(object.getText());

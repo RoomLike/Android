@@ -63,6 +63,20 @@ public class ObjectStore {
         }
     }
 
+    public void addSchedule(Schedule schedule){
+        for(BaseObject o : objects){
+            if(o.getObjectID() == schedule.getObjectID()){
+                if(o instanceof Chore) {
+                    ((Chore)o).setSchedule(schedule);
+                }else if(o instanceof Payment){
+                    ((Payment)o).setSchedule(schedule);
+                }
+                schedule.setObject(o);
+                break;
+            }
+        }
+    }
+
     public User getUserByName(String name){
         for(User u : group.getUsers().values()){
             if(u.getUserName().equals(name)){
@@ -130,6 +144,9 @@ public class ObjectStore {
         for(BaseObject boo : objects){
             if(boo instanceof Message){
                 list.add(boo);
+                L.e("Message Found: " + boo.getObjectID() + " " + boo.getText());
+            }else{
+                L.e("Not a message: " + boo.getObjectID() + " " + boo.getText());
             }
         }
         return list;

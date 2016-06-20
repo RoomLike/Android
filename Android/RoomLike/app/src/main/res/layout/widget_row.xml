@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/text_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/object_title"
+            android:textSize="12pt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <TextView
+            android:id="@+id/object_details"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+    <Button
+        android:id="@+id/complete_button"
+        android:text="Complete"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent">
+    </Button>
+</LinearLayout>

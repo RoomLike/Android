@@ -41,6 +41,13 @@ public class FrequencyStore {
         return f;
     }
 
+    public static Frequency getFrequencyByInt(int value){
+        if(frequencies == null){
+            init();
+        }
+        return frequencies.get(value);
+    }
+
     public static void init(){
         frequencies = new ArrayList<>();
         frequencies.add(new Once());
